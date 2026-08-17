@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>pratos tipicos - tailwind</title>
+
+  <!-- puxa o css compilado do tailwind -->
+  <link rel="stylesheet" href="output.css">
+</head>
+
+<!-- fundo cinza claro na pagina toda -->
+<body class="bg-gray-100">
+
+  <!-- topo vermelho com texto branco centralizado e espaco por dentro e por fora -->
+  <header class="bg-red-600 text-white text-center py-4 mb-6">
+    <!-- titulo grande em negrito -->
+    <h1 class="text-3xl font-bold">pratos típicos do brasil</h1>
+  </header>
+
+  <!-- container centralizado com respiro do lado pro celular -->
+  <main class="container mx-auto px-4">
+
+    <!-- grid que fica com 1 coluna no celular, 2 no tablet e 3 no pc -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+
+      <!-- card com fundo branco, espaco interno, pontas arredondadas e sombra -->
+      <div class="bg-white p-4 rounded-lg shadow-sm">
+        <h3 class="text-xl font-bold mb-2">feijoada</h3>
+        <p class="text-gray-700">prato tradicional feito com feijão preto e carnes suínas.</p>
+      </div>
+
+      <!-- segundo card com o mesmo estilo -->
+      <div class="bg-white p-4 rounded-lg shadow-sm">
+        <h3 class="text-xl font-bold mb-2">coxinha</h3>
+        <p class="text-gray-700">salgado frito recheado com frango desfiado temperado.</p>
+      </div>
+
+      <!-- terceiro card com o mesmo estilo -->
+      <div class="bg-white p-4 rounded-lg shadow-sm">
+        <h3 class="text-xl font-bold mb-2">brigadeiro</h3>
+        <p class="text-gray-700">doce de chocolate feito com leite condensado e granulado.</p>
+      </div>
+
+    </div>
+  </main>
+
+  <!--
+    o que mudou? o que ficou igual?
+
+    o que mudou:
+    1. o bootstrap usa row e col-12, ja o tailwind usa css grid direto com grid e grid-cols.
+    2. o bootstrap usa bg-danger e o tailwind usa tons com numeros tipo bg-red-600.
+    3. o tailwind precisa do terminal rodando pra criar o output.css.
+
+    o que ficou igual:
+    1. os dois sao mobile-first e usam md: e lg: pras telas maiores.
+    2. as utilitarias de espaco como p-4 e alinhamento como text-center funcionam do mesmo jeito.
+  -->
+
+</body>
+</html>

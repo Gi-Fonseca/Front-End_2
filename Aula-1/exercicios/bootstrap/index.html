@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Atividade 1 - Bootstrap</title>
+
+
+    <!-- este link vai até os servidores do Bootstrap e "puxa" todo o CSS deles. 
+         É isso que permite que as classes mágicas funcionem sem você ter criado nenhum arquivo .css -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+
+<!-- Adicionei bg-light para deixar o fundo da página cinza clarinho.
+     Assim, os cards brancos vão ganhar destaque. -->
+<body class="bg-light">
+
+
+    <!-- 
+         bg-danger: pinta o fundo de vermelho.
+         text-white: pinta o texto de branco.
+         text-center: alinha o texto no meio.
+         py-4: adiciona um espaço interno (padding) em cima e embaixo, pro texto não ficar colado na borda. -->
+    <header class="bg-danger text-white text-center py-4">
+        <h1>Nosso Cardápio</h1>
+    </header>
+
+
+    <!-- O "container" limita a largura máxima da página e centraliza tudo, 
+         deixando aquelas margens em branco nas laterais em telas grandes. O "mt-5" dá um espaço no topo. -->
+    <main class="container mt-5">
+
+        <!-- No Bootstrap, as colunas PRECISAM ficar dentro de uma "row" (linha). 
+             O "g-4" cria o buraco (gap) de espaçamento entre os cards. -->
+        <div class="row g-4">
+
+
+
+
+            <!-- CARD 1: FEIJOADA -->
+            <!-- 
+                 col-12: no celular (telas pequenas), ocupa os 12 pedaços = 1 por linha.
+                 col-md-6: em tablets (md), ocupa 6 pedaços = 2 por linha.
+                 col-lg-4: em desktop (lg), ocupa 4 pedaços = 3 por linha. -->
+            <div class="col-12 col-md-6 col-lg-4">
+                
+                <!-- 
+                     bg-white: fundo branco
+                     p-4: espaçamento interno pra não colar na borda
+                     rounded-3: arredonda as pontinhas
+                     shadow-sm: coloca a sombrinha de leve
+                     h-100: garante que todos os cards tenham a mesma altura, mesmo se o texto de um for maior -->
+                <div class="bg-white p-4 rounded-3 shadow-sm h-100">
+                    <h2>🥘 Feijoada</h2>
+                    <p>Deliciosa feijoada completa com arroz, couve e farofa.</p>
+                </div>
+            </div>
+
+            <!-- CARD 2: COXINHA -->
+            <div class="col-12 col-md-6 col-lg-4">
+                <div class="bg-white p-4 rounded-3 shadow-sm h-100">
+                    <h2>🍗 Coxinha</h2>
+                    <p>Massa crocante com muito recheio de frango e catupiry.</p>
+                </div>
+            </div>
+
+            <!-- CARD 3: BRIGADEIRO -->
+            <div class="col-12 col-md-6 col-lg-4">
+                <div class="bg-white p-4 rounded-3 shadow-sm h-100">
+                    <h2>🍫 Brigadeiro</h2>
+                    <p>O clássico doce brasileiro feito com chocolate de primeira.</p>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+</body>
+</html>
