@@ -1,91 +1,89 @@
-/* ============================================
-   Sabor & Saber — Kickoff Live Code
-   Objetivo: refrescar OO + DOM ANTES de entrar em React.
-
-   Fluxo:
-     1. Definir classe Prato (OO)
-     2. Instanciar objetos
-     3. Selecionar e manipular o DOM
-     4. Adicionar eventos
-   ============================================ */
+/* ==================================================
+   Sabor & Saber — Cardápio dinâmico com Tailwind CSS
+   
+   O JavaScript é IDÊNTICO ao da versão Bootstrap.
+   A única diferença: as classes CSS que aplicamos
+   nos cards são Tailwind em vez de Bootstrap.
+   
+   Isso demonstra um ponto importante:
+   o JS não sabe (nem precisa saber) qual framework
+   CSS você está usando. Só muda os nomes das classes.
+   ================================================== */
 
 
 /* -----------------------------------------------------------
-   PARTE 1 — OO
-   Por que classe e não só um objeto literal ({nome, preco})?
-   Porque com classe temos MÉTODOS (comportamento) junto
-   dos dados, e conseguimos criar MUITOS pratos com o mesmo molde.
+   Classe Prato — igual às aulas anteriores
    ----------------------------------------------------------- */
 class Prato {
   constructor(nome, preco, categoria) {
-    // `this` aponta pro objeto que está sendo criado agora.
-    // Sem `this`, o valor "some" quando o constructor acaba.
     this.nome      = nome;
     this.preco     = preco;
     this.categoria = categoria;
   }
 
-  // Método porque é uma AÇÃO do prato — ele SABE se formatar.
-  // Formatar preço fora da classe funcionaria, mas espalha lógica.
   formatarPreco() {
     return `R$ ${this.preco.toFixed(2).replace('.', ',')}`;
-  }
-
-  // Método que MUTA o estado interno do prato.
-  // Ex.: promoção de terça-feira.
-  aplicarDesconto(percentual) {
-    this.preco = this.preco * (1 - percentual / 100);
   }
 }
 
 
 /* -----------------------------------------------------------
-   PARTE 2 — Instanciando objetos
-   Aqui simulamos o que virá da API do Back-End no projeto real.
-   Cada `new Prato(...)` é um objeto novo com dados próprios,
-   mas todos compartilham os métodos definidos na classe.
+   Cardápio (mock)
    ----------------------------------------------------------- */
 const cardapio = [
-  new Prato("Feijoada Completa",  42.90, "Prato Principal"),
-  new Prato("Moqueca de Peixe",   58.00, "Prato Principal"),
-  new Prato("Coxinha Artesanal",   8.50, "Petisco"),
-  new Prato("Brigadeiro Gourmet",  6.00, "Sobremesa"),
-  new Prato("Suco de Maracujá",   12.00, "Bebida"),
+  new Prato("Feijoada Completa",   42.90, "Prato Principal"),
+  new Prato("Moqueca de Peixe",    58.00, "Prato Principal"),
+  new Prato("Coxinha Artesanal",    8.50, "Petisco"),
+  new Prato("Brigadeiro Gourmet",   6.00, "Sobremesa"),
+  new Prato("Suco de Maracujá",    12.00, "Bebida"),
+  new Prato("Bolinho de Bacalhau", 15.00, "Petisco"),
 ];
-
-// Demonstração no console — mostrar que o método funciona
-console.log("=== Pratos criados ===");
-cardapio.forEach(p => {
-  console.log(`${p.nome} → ${p.formatarPreco()}`);
-});
 
 
 /* -----------------------------------------------------------
-   PARTE 3 — DOM: selecionar e renderizar
-   Aqui vem o "custo" do vanilla JS: cada card é montado
-   manualmente com createElement / innerHTML.
-   Em React, isso vira 3 linhas de JSX.
+   Criar card — agora com classes TAILWIND
+   
+   COMPARATIVO das classes usadas:
+   
+   Bootstrap                     Tailwind
+   ─────────────────────────────────────────────────
+   p-4                    →      p-4         (igual!)
+   bg-white               →      bg-white    (igual!)
+   rounded-3              →      rounded-xl
+   shadow-sm              →      shadow-sm   (igual!)
+   h-100                  →      h-full
+   fs-4 fw-bold           →      text-xl font-bold
+   text-dark              →      text-gray-800
+   fs-6                   →      text-sm
+   text-muted             →      text-gray-500
+   d-block mb-3           →      block mb-3  (igual!)
+   fs-5 fw-bold           →      text-lg font-bold
+   text-success           →      text-green-600
+   ─────────────────────────────────────────────────
+   
+   Perceba: p-4, shadow-sm, block, mb-3 são iguais!
+   Tailwind e Bootstrap compartilham várias convenções.
    ----------------------------------------------------------- */
 
-// Seleção — 1 elemento pelo ID via querySelector (moderno)
 const containerCardapio = document.querySelector('#cardapio');
 
-// Função dedicada para renderizar UM prato → boa prática de organização.
-// Separar em função pequena facilita testar e trocar depois.
 function criarCardPrato(prato) {
-  const card = document.createElement('div');
-  card.className = 'card';
+  const card = document.createElement('article');
+  // Classes Tailwind:
+  // card-prato     = nossa classe custom (hover definido no input.css)
+  // p-4            = padding interno (igual Bootstrap)
+  // bg-white       = fundo branco
+  // rounded-xl     = cantos arredondados (= rounded-3 do Bootstrap)
+  // shadow-sm      = sombra suave (igual Bootstrap)
+  // h-full         = altura 100% (= h-100 do Bootstrap)
+  card.className = 'card-prato p-4 bg-white rounded-xl shadow-sm h-full';
 
-  // Template string: mais legível que concatenar com "+"
   card.innerHTML = `
-    <h3>${prato.nome}</h3>
-    <span class="categoria">${prato.categoria}</span>
-    <div class="preco">${prato.formatarPreco()}</div>
+    <h3 class="text-xl font-bold text-gray-800 mb-2">${prato.nome}</h3>
+    <span class="text-sm text-gray-500 block mb-3 categoria">${prato.categoria}</span>
+    <div class="text-lg font-bold text-green-600">${prato.formatarPreco()}</div>
   `;
 
-  /* Evento por card (PARTE 4).
-     ⚠️ Repare: adicionamos DENTRO da função de criação —
-     assim cada card ganha SEU listener no momento em que é criado. */
   card.addEventListener('click', () => {
     alert(
       `🍽️ ${prato.nome}\n\n` +
@@ -97,29 +95,11 @@ function criarCardPrato(prato) {
   return card;
 }
 
-// Renderizar TUDO — loop simples
 function renderizarCardapio() {
-  // Limpar antes de renderizar → evita duplicar em re-render
   containerCardapio.innerHTML = '';
-
   cardapio.forEach(prato => {
-    const card = criarCardPrato(prato);
-    containerCardapio.appendChild(card);
+    containerCardapio.appendChild(criarCardPrato(prato));
   });
 }
 
-// Primeira renderização quando a página carrega
 renderizarCardapio();
-
-
-/* -----------------------------------------------------------
-   BÔNUS para explorar em aula:
-   Rode no console e veja o cardápio se atualizar!
-
-   cardapio[0].aplicarDesconto(20);
-   renderizarCardapio();
-
-   Percebeu? No vanilla você tem que CHAMAR renderizar de novo.
-   No React, atualizar o estado já dispara a re-renderização
-   automaticamente. Isso é o "declarativo" na prática.
-   ----------------------------------------------------------- */
